@@ -103892,8 +103892,9 @@ function (_Component) {
       var startDate = Date.parse(new Date(start));
       var actDate = Date.parse(new Date());
       var left = endDate - actDate;
-      var total = endDate - startDate;
-      var percentage = 100 - left / total * 100;
+      var total = endDate - startDate; //const percentage = 100 - ((left / total) * 100);
+
+      var percentage = 100 - 100 / total * left;
 
       if (percentage >= 100) {
         return 100;

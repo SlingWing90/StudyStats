@@ -94,7 +94,9 @@
           let left = endDate - actDate;
           let total = endDate - startDate;
           
-          const percentage = 100 - ((left / total) * 100);
+          //const percentage = 100 - ((left / total) * 100);
+          
+          const percentage = 100 - (100 / total) * left;
           
           if(percentage >= 100){
               return 100;
