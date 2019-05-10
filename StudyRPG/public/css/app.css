@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .progressbar {
   width: 100%;
   background-color: lightgray;
@@ -7,7 +15,7 @@
 }
 
 .progressbar .bar {
-  background-color: lightgreen;
+  background-color: red;
   height: 100%;
 }
 
@@ -23,6 +31,12 @@
   padding: 0.75rem 1.25rem;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.task-list {
+  height: 80vh;
+  max-height: 80vh;
+  overflow-y: scroll;
 }
 
 /*!

@@ -12,32 +12,24 @@ class Home extends Component {
         }
 
         this.doneTask = this.doneTask.bind(this);
+        this.updateRadar = this.updateRadar.bind(this);
     }
 
     componentWillMount(){
-
-        /*console.log("WIll");
-        const data = {
-          labels: [],
-          datasets: [
-            {
-              label: 'My First dataset',
-              backgroundColor: 'rgba(179,181,198,0.2)',
-              borderColor: 'rgba(179,181,198,1)',
-              pointBackgroundColor: 'rgba(179,181,198,1)',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: 'rgba(179,181,198,1)',
-              data: []
-            }
-          ]
-        };  
-
-        this.setState({data: data});*/
     }
 
     componentDidMount () {  
 
+        this.updateRadar();
+
+        // Load undone tasks
+        axios.get('/api/tasks/0').then(response => {
+            this.setState({tasks: response.data})
+        })
+
+    }
+    
+    updateRadar(){
         // Initialize Data for Graph
         let data = {
           labels: [],
@@ -67,25 +59,23 @@ class Home extends Component {
             data.datasets[0].data = data_array;
 
             this.setState({data: data});
-        })
-
-        // Load undone tasks
-        axios.get('/api/tasks/0').then(response => {
-            this.setState({tasks: response.data})
-        })
-
+        });
     }
 
     doneTask(task_key){
-          let task_list = this.state.tasks;
-          let task_data = this.state.tasks[task_key];
-
-          var arr = [...this.state.tasks];
-          arr.splice(task_key, 1);
-          this.setState({tasks: arr});      
+        let task_list = this.state.tasks;
+        let task_data = this.state.tasks[task_key];
+        let task_id = task_data.id; 
+        
+        axios.get("/api/done/"+task_id).then(response => {
+            var arr = [...this.state.tasks];
+            arr.splice(task_key, 1); 
+            this.setState({tasks: arr}); 
+            this.updateRadar();
+        });
     }
 
-
+    // state.tasks: Redux would be much better...
     render () {
         return (
           <div className="container">
@@ -93,7 +83,7 @@ class Home extends Component {
                 <div className="col-md-6">
                     <h2 className="text-center">Fortschritt</h2>
                     <div className="box-border">
-                        <Radar options={{legend:{display: false}}} data={this.state.data} />
+                        <Radar options={{legend:{display: false},scale:{ticks:{min:0,max:100}}}} data={this.state.data} />
                     </div>
                 </div>
                 <TaskList tasks={this.state.tasks} onDoneClick={this.doneTask} />

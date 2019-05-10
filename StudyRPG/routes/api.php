@@ -22,3 +22,5 @@ Route::get('subjects', 'HomeController@get_subjects');
 Route::get('subject_tasks', 'HomeController@get_subjects_tasks');
 Route::get('tasks/{done}', 'HomeController@get_tasks');
 Route::get('subjects_tasks_done', 'HomeController@get_subjects_tasks_done');
+
+Route::get('done/{task_id}', 'HomeController@set_task_done');

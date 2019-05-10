@@ -103384,34 +103384,30 @@ function (_Component) {
       tasks: []
     };
     _this.doneTask = _this.doneTask.bind(_assertThisInitialized(_this));
+    _this.updateRadar = _this.updateRadar.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Home, [{
     key: "componentWillMount",
-    value: function componentWillMount() {
-      /*console.log("WIll");
-      const data = {
-        labels: [],
-        datasets: [
-          {
-            label: 'My First dataset',
-            backgroundColor: 'rgba(179,181,198,0.2)',
-            borderColor: 'rgba(179,181,198,1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-            data: []
-          }
-        ]
-      };  
-        this.setState({data: data});*/
-    }
+    value: function componentWillMount() {}
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
+
+      this.updateRadar(); // Load undone tasks
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks/0').then(function (response) {
+        _this2.setState({
+          tasks: response.data
+        });
+      });
+    }
+  }, {
+    key: "updateRadar",
+    value: function updateRadar() {
+      var _this3 = this;
 
       // Initialize Data for Graph
       var data = {
@@ -103424,12 +103420,7 @@ function (_Component) {
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
           pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: [],
-          options: {
-            legend: {
-              display: false
-            }
-          }
+          data: []
         }]
       }; // Load finished tasks from server
 
@@ -103445,30 +103436,32 @@ function (_Component) {
         data.labels = label_array;
         data.datasets[0].data = data_array;
 
-        _this2.setState({
+        _this3.setState({
           data: data
-        });
-      }); // Load undone tasks
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks/0').then(function (response) {
-        _this2.setState({
-          tasks: response.data
         });
       });
     }
   }, {
     key: "doneTask",
     value: function doneTask(task_key) {
+      var _this4 = this;
+
       var task_list = this.state.tasks;
       var task_data = this.state.tasks[task_key];
+      var task_id = task_data.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/done/" + task_id).then(function (response) {
+        var arr = _toConsumableArray(_this4.state.tasks);
 
-      var arr = _toConsumableArray(this.state.tasks);
+        arr.splice(task_key, 1);
 
-      arr.splice(task_key, 1);
-      this.setState({
-        tasks: arr
+        _this4.setState({
+          tasks: arr
+        });
+
+        _this4.updateRadar();
       });
-    }
+    } // state.tasks: Redux would be much better...
+
   }, {
     key: "render",
     value: function render() {
@@ -103486,6 +103479,12 @@ function (_Component) {
         options: {
           legend: {
             display: false
+          },
+          scale: {
+            ticks: {
+              min: 0,
+              max: 100
+            }
           }
         },
         data: this.state.data
@@ -103805,11 +103804,104 @@ function (_Component) {
     _classCallCheck(this, TaskList);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TaskList).call(this, props));
+    _this.state = {
+      timeLeft: []
+    };
     _this.handler = _this.handler.bind(_assertThisInitialized(_this));
+    _this.calculateCountdown = _this.calculateCountdown.bind(_assertThisInitialized(_this));
+    _this.formatCountdown = _this.formatCountdown.bind(_assertThisInitialized(_this));
+    _this.timePercentage = _this.timePercentage.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(TaskList, [{
+    key: "calculateCountdown",
+    value: function calculateCountdown(endDate) {
+      var diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
+
+      if (diff <= 0) {
+        return false;
+      }
+
+      var timeLeft = {
+        years: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      };
+
+      if (diff >= 365 * 86400) {
+        timeLeft.years = Math.floor(diff / (365 * 86400));
+        diff -= timeLeft.years * 365 * 86400;
+      }
+
+      if (diff >= 86400) {
+        timeLeft.days = Math.floor(diff / 86400);
+        diff -= timeLeft.days * 86400;
+      }
+
+      if (diff >= 3600) {
+        timeLeft.hours = Math.floor(diff / 3600);
+        diff -= timeLeft.hours * 3600;
+      }
+
+      if (diff >= 60) {
+        timeLeft.minutes = Math.floor(diff / 60);
+        diff -= timeLeft.minutes * 60;
+      }
+
+      timeLeft.seconds = diff; // this.setState({timeLeft: timeLeft});
+
+      return timeLeft;
+      console.log(days);
+    }
+  }, {
+    key: "formatCountdown",
+    value: function formatCountdown(end) {
+      var timeLeft = this.calculateCountdown(end);
+      var timeLeftString = "Noch ";
+
+      if (timeLeft.years > 0) {
+        timeLeftString += timeLeft.years + " Jahre";
+      }
+
+      if (timeLeft.days > 0) {
+        timeLeftString += " " + timeLeft.days + " Tage";
+      }
+
+      if (timeLeft.hours > 0) {
+        timeLeftString += " " + timeLeft.hours + " Stunden";
+      }
+
+      if (timeLeft.minutes > 0) {
+        timeLeftString += " " + timeLeft.minutes + " Minuten";
+      }
+
+      if (timeLeft.seconds > 0) {
+        timeLeftString += " " + timeLeft.seconds + " Sekunden";
+      }
+
+      return timeLeftString; //timeLeft.days+" Tage "+timeLeft.hours
+    }
+  }, {
+    key: "timePercentage",
+    value: function timePercentage(start, end) {
+      //let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
+      var endDate = Date.parse(new Date(end));
+      var startDate = Date.parse(new Date(start));
+      var actDate = Date.parse(new Date());
+      var left = endDate - actDate;
+      var total = endDate - startDate;
+      var percentage = 100 - left / total * 100;
+
+      if (percentage >= 100) {
+        return 100;
+      }
+
+      return percentage;
+    }
+  }, {
     key: "handler",
     value: function handler(e) {
       this.props.onDoneClick(e);
@@ -103825,19 +103917,19 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
         className: "text-center"
       }, "Aufgaben"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-        className: "list-group"
+        className: "list-group task-list"
       }, tasks.map(function (item, key) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
           className: "list-group-item",
           key: key
-        }, item.name, " - X days left", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, item.description), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("strong", null, item.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, item.description), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "progressbar"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "bar",
           style: {
-            width: "50%"
+            width: _this2.timePercentage(item.created_at, item.end) + "%"
           }
-        }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, _this2.formatCountdown(item.end))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           type: "button",
           onClick: function onClick() {
             return _this2.handler(key);
