@@ -103551,78 +103551,58 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Setting).call(this, props));
     _this.state = {
       selected_subject: -2,
-      subject_name: ''
+      subject_name: '',
+      subjects: [],
+      show_add: true,
+      tasks: [],
+      name: "",
+      description: "",
+      start: "",
+      end: ""
     };
     _this.onChangeSelect = _this.onChangeSelect.bind(_assertThisInitialized(_this));
     _this.onChangeHandler = _this.onChangeHandler.bind(_assertThisInitialized(_this));
     _this.saveSubject = _this.saveSubject.bind(_assertThisInitialized(_this));
+    _this.saveTask = _this.saveTask.bind(_assertThisInitialized(_this));
+    _this.onClickHandler = _this.onClickHandler.bind(_assertThisInitialized(_this));
+    _this.updateTasks = _this.updateTasks.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Setting, [{
     key: "componentWillMount",
-    value: function componentWillMount() {
-      console.log("WIll");
-      var data = {
-        labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-        datasets: [{
-          label: 'My First dataset',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: 'rgba(179,181,198,1)',
-          pointBackgroundColor: 'rgba(179,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: [65, 59, 90, 81, 56, 55, 40]
-        }, {
-          label: 'My Second dataset',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          pointBackgroundColor: 'rgba(255,99,132,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(255,99,132,1)',
-          data: [28, 48, 40, 19, 96, 27, 100]
-        }]
-      };
-      this.setState({
-        data: data
-      });
+    value: function componentWillMount() {//
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log("did");
-      var data = {
-        labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-        datasets: [{
-          label: 'My First dataset',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: 'rgba(179,181,198,1)',
-          pointBackgroundColor: 'rgba(179,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: [28, 48, 40, 19, 96, 27, 100]
-        }, {
-          label: 'My Second dataset',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          pointBackgroundColor: 'rgba(255,99,132,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(255,99,132,1)',
-          data: [65, 59, 90, 81, 56, 55, 40]
-        }]
-      };
-      this.setState({
-        data: data
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/subjects').then(function (response) {
+        console.table(response);
+
+        _this2.setState({
+          subjects: response.data
+        });
+      });
+    }
+  }, {
+    key: "updateTasks",
+    value: function updateTasks(subject_id) {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/subject_tasks/' + subject_id).then(function (response) {
+        _this3.setState({
+          tasks: response.data
+        });
       });
     }
   }, {
     key: "onChangeSelect",
     value: function onChangeSelect(event) {
-      console.log(event.target.value);
+      //console.log(event.target.value);
+      var subject_id = event.target.value;
+      this.updateTasks(subject_id);
       this.setState({
         selected_subject: event.target.value
       });
@@ -103633,21 +103613,50 @@ function (_Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
+    key: "onClickHandler",
+    value: function onClickHandler(val) {
+      //console.table(event.target);
+      console.log(val);
+      this.setState({
+        show_add: val
+      });
+    }
+  }, {
     key: "saveSubject",
     value: function saveSubject() {
-      /*axios.get('/api/save/'+date+"/"+weight).then(response => {
-           console.table(response.data); 
-           
-           this.setState({
-               date: "",
-               weight: 0
-           });
-           //this.setState({weights: response.data})
-       })*/
+      var _this4 = this;
+
+      var subject_name = this.state.subject_name;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/new_subject/' + subject_name).then(function (response) {
+        _this4.setState({
+          subjects: response.data
+        });
+      });
+    }
+  }, {
+    key: "saveTask",
+    value: function saveTask() {
+      var _this5 = this;
+
+      var subject_id = this.state.selected_subject;
+      var task_name = this.state.name;
+      var task_description = this.state.description;
+      var task_start = this.state.start;
+      var task_ende = this.state.end;
+      console.log("saveTask: " + subject_id + " " + task_name + " " + task_description + " " + task_start + " " + task_ende);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/new_task/' + subject_id + "/" + task_name + "/" + task_description + "/" + task_start + "/" + task_ende).then(function (response) {
+        _this5.setState({
+          tasks: response.data
+        });
+      });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this6 = this;
+
+      var subjects = this.state.subjects;
+      var tasks = this.state.tasks;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -103658,9 +103667,7 @@ function (_Component) {
         className: "box-border"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-        htmlFor: "exampleFormControlSelect1"
-      }, "Fach"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Fach"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
         name: "subject",
         onChange: this.onChangeSelect,
         className: "form-control",
@@ -103669,10 +103676,15 @@ function (_Component) {
         value: "-2"
       }, "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
         value: "-1"
-      }, "Neu")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+      }, "Neu"), subjects.map(function (item, key) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          value: item.id,
+          key: key
+        }, item.name);
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
         id: "emailHelp",
         className: "form-text text-muted"
-      }, "We'll never share your email with anyone else.")), this.state.selected_subject == -1 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Fach ausw\xE4hlen oder neues Fach anlegen")), this.state.selected_subject == -1 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
         htmlFor: "exampleInputEmail1"
@@ -103691,61 +103703,95 @@ function (_Component) {
       }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         onClick: this.saveSubject,
         className: "btn btn-primary"
-      }, "Speichern"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Speichern"))), this.state.selected_subject >= 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "box-border margin-top-10"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Aufgaben"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
+        className: "nav"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: this.state.show_add ? 'btn btn-primary' : 'btn btn-default',
+        onClick: function onClick() {
+          return _this6.onClickHandler(true);
+        }
+      }, "Anlegen"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: !this.state.show_add ? 'btn btn-primary' : 'btn btn-default',
+        onClick: function onClick() {
+          return _this6.onClickHandler(false);
+        }
+      }, "Bearbeiten")), this.state.show_add == true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "margin-top-10"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-        htmlFor: "exampleInputEmail1"
+        htmlFor: "inputName"
       }, "Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "email",
+        type: "text",
+        name: "name",
+        onChange: this.onChangeHandler,
         className: "form-control",
-        id: "exampleInputEmail1",
-        "aria-describedby": "emailHelp",
-        placeholder: "Enter email"
+        id: "inputName",
+        "aria-describedby": "nameHelp",
+        placeholder: "Name der Aufgabe"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-        id: "emailHelp",
+        id: "nameHelp",
         className: "form-text text-muted"
-      }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Ein aussagekr\xE4ftiger Name f\xFCr die Aufgabe.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-        htmlFor: "exampleInputEmail1"
+        htmlFor: "inputDescription"
       }, "Beschreibung"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "email",
+        type: "text",
+        name: "description",
+        onChange: this.onChangeHandler,
         className: "form-control",
-        id: "exampleInputEmail1",
-        "aria-describedby": "emailHelp",
-        placeholder: "Enter email"
+        id: "inputDescription",
+        "aria-describedby": "descriptionHelp",
+        placeholder: "Kurze Beschreibung"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-        id: "emailHelp",
+        id: "descriptionHelp",
         className: "form-text text-muted"
-      }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Eine kurze Beschreibung.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-        htmlFor: "exampleInputEmail1"
+        htmlFor: "inputStart"
       }, "Start"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "email",
+        type: "text",
+        name: "start",
+        onChange: this.onChangeHandler,
         className: "form-control",
-        id: "exampleInputEmail1",
-        "aria-describedby": "emailHelp",
-        placeholder: "Enter email"
+        id: "inputStart",
+        "aria-describedby": "startHelp",
+        placeholder: "Wann beginnt diese Aufgabe"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-        id: "emailHelp",
+        id: "startHelp",
         className: "form-text text-muted"
-      }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, "Startdatum der Aufgabe")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-        htmlFor: "exampleInputEmail1"
+        htmlFor: "inputEnde"
       }, "Ende"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "email",
+        type: "text",
+        name: "end",
+        onChange: this.onChangeHandler,
         className: "form-control",
-        id: "exampleInputEmail1",
-        "aria-describedby": "emailHelp",
-        placeholder: "Enter email"
+        id: "inputEnde",
+        "aria-describedby": "endeHelp",
+        placeholder: "Wann endet diese Aufgabe"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-        id: "emailHelp",
+        id: "endeHelp",
         className: "form-text text-muted"
-      }, "We'll never share your email with anyone else."))))));
+      }, "Enddatum der Aufgabe.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: "btn btn-primary",
+        onClick: this.saveTask
+      }, "Speichern")), this.state.show_add == false && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "margin-top-10"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
+        className: "list-group"
+      }, tasks.map(function (item, key) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
+          key: key,
+          className: "list-group-item"
+        }, item.name);
+      })))))));
     }
   }]);
 

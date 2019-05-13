@@ -19,8 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('subjects', 'HomeController@get_subjects');
-Route::get('subject_tasks', 'HomeController@get_subjects_tasks');
+Route::get('subject_tasks/{subject_id}', 'HomeController@get_subjects_tasks');
 Route::get('tasks/{done}', 'HomeController@get_tasks');
 Route::get('subjects_tasks_done', 'HomeController@get_subjects_tasks_done');
 
 Route::get('done/{task_id}', 'HomeController@set_task_done');
+
+Route::get('new_subject/{subject_name}', 'HomeController@save_subject');
+Route::get('new_task/{subject_id}/{task_name}/{task_description}/{start}/{end}', 'HomeController@save_task');
