@@ -127,6 +127,8 @@ class Home extends Component {
         let task_id = task_data.id; 
         
         axios.get("/api/done/"+task_id).then(response => {
+            
+            
             var arr = [...this.state.tasks];
             arr.splice(task_key, 1); 
             this.setState({tasks: arr}); 

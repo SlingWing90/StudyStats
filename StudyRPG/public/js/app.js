@@ -116356,7 +116356,6 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/process").then(function (response) {
         var label_array = [];
         var data_array = [];
-        console.table(response.data);
         response.data.map(function (d) {
           return label_array.push((d.month < 10 ? "0" : "") + d.month + "." + d.year);
         });
