@@ -134,7 +134,7 @@
                                 <div className="bar" style={{width: this.timePercentage(item.start, item.end)+"%"}}>
                                 </div>
                             </div>
-                            <small>{this.formatCountdown(item.end)}</small>
+                            <small className="duration-text">{this.formatCountdown(item.end)}</small>
                         </div>
                         
                         <button type="button" onClick={() => this.handler(key)} className="btn btn-primary margin-top-10">Erledigt</button>

@@ -103978,14 +103978,13 @@ function (_Component) {
 
       timeLeft.seconds = diff; // this.setState({timeLeft: timeLeft});
 
-      return timeLeft;
-      console.log(days);
+      return timeLeft; //console.log(days);
     }
   }, {
     key: "formatCountdown",
     value: function formatCountdown(end) {
-      var timeLeft = this.calculateCountdown(end);
-      console.log(timeLeft);
+      var timeLeft = this.calculateCountdown(end); //console.log(timeLeft);
+
       var timeLeftString = "";
 
       if (timeLeft != false) {
@@ -104062,7 +104061,9 @@ function (_Component) {
           style: {
             width: _this2.timePercentage(item.start, item.end) + "%"
           }
-        })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, _this2.formatCountdown(item.end))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+          className: "duration-text"
+        }, _this2.formatCountdown(item.end))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           type: "button",
           onClick: function onClick() {
             return _this2.handler(key);

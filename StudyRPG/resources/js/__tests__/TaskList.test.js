@@ -24,4 +24,14 @@ describe('<TaskList />', () => {
         // could be li or .list-group-item - li better?
         expect(component.find('.list-group-item')).toHaveLength(2);
     });
+    
+    it('renders <TaskList /> component with expired task', () => {
+        const test_tasks = [{"id":17,"subject_id":1,"name":"Sint debitis nihil","description":"Corporis modi","start":"2018-05-01 00:00:00","end":"2018-05-21 00:00:00","finished":"2019-06-18 00:00:00","done":0,"created_at":"2019-05-14 08:17:21","updated_at":"2019-05-14 08:17:21"}];
+        
+        const clickFn = jest.fn();
+        
+        const component = shallow(<TaskList tasks={test_tasks} onDoneClick={clickFn} />);
+        
+        expect(component.find('.duration-text').text()).toEqual("Abgelaufen!");
+    });
 });
