@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TaskList /> renders <TaskList /> component with empty props without crashing 1`] = `ShallowWrapper {}`;

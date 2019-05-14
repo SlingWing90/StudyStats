@@ -57,13 +57,13 @@
           // this.setState({timeLeft: timeLeft});
           return timeLeft;
           
-          console.log(days);
+          //console.log(days);
       }
         
       formatCountdown(end){
           const timeLeft = this.calculateCountdown(end);
           
-          console.log(timeLeft);
+          //console.log(timeLeft);
           let timeLeftString = "";
           if(timeLeft != false){
               timeLeftString = "Noch ";
