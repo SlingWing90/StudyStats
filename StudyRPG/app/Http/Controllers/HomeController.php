@@ -69,7 +69,7 @@ class HomeController extends Controller
         //DB::table("tasks")->where("id", $task_id)->update(["done" => 1]);
         
         DB::table('subjects')->insert(
-            ['name' => $subject_name]
+            ['name' => $subject_name, 'created_at' => now(), 'updated_at' => now()]
         );
         
         return $this->get_subjects(); 
