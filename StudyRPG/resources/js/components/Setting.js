@@ -1,5 +1,8 @@
-    import axios from 'axios'
-    import React, { Component } from 'react'
+import axios from 'axios'
+import React, { Component } from 'react'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 class Setting extends Component {
     constructor (props) {
@@ -14,7 +17,9 @@ class Setting extends Component {
             name: "",
             description: "",
             start: "",
-            end: ""
+            end: "",
+            picker_start: "",
+            picker_end: ""
         }
 
         this.onChangeSelect = this.onChangeSelect.bind(this);
@@ -23,6 +28,11 @@ class Setting extends Component {
         this.saveTask = this.saveTask.bind(this);
         this.onClickHandler = this.onClickHandler.bind(this);
         this.updateTasks = this.updateTasks.bind(this);
+        
+        this.onStartDateChange = this.onStartDateChange.bind(this);
+        this.onEndDateChange = this.onEndDateChange.bind(this);
+        
+        this.formatDate = this.formatDate.bind(this);
     }
 
     componentWillMount(){
@@ -65,6 +75,61 @@ class Setting extends Component {
         this.setState({
             show_add: val
         });
+    }
+    
+    formatDate(date){
+        
+        let _date = new Date(date);
+        
+        let year = _date.getFullYear();
+        let month = _date.getMonth()+1;
+        let day = _date.getDate();
+        
+        let hours = _date.getHours();
+        let minutes = _date.getMinutes();
+        let seconds = _date.getSeconds();
+        
+        if(day < 10){
+            day = "0"+day; 
+        }
+        
+        if(month < 10){
+            month = "0"+month;
+        }
+        
+        if(hours < 10){
+            hours = "0"+hours;
+        }
+        
+        if(minutes < 10){
+            minutes = "0"+minutes;
+        }
+        
+        if(seconds < 10){
+            seconds = "0"+seconds;
+        }
+        
+        let format_date = year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+        
+        return format_date;
+    }
+    
+    onStartDateChange(start_date){
+        
+        let format_date = this.formatDate(start_date);
+        
+        console.log(this.formatDate(start_date));
+        
+        this.setState({start: format_date});
+        this.setState({picker_start: start_date});
+    }
+    
+    onEndDateChange(end_date){
+        
+        let format_date = this.formatDate(end_date);
+        
+        this.setState({end: format_date});
+        this.setState({picker_end: end_date});
     }
 
     saveSubject(){
@@ -150,16 +215,40 @@ class Setting extends Component {
                                         <input type="text" name="description" onChange={this.onChangeHandler} className="form-control" id="inputDescription" aria-describedby="descriptionHelp" placeholder="Kurze Beschreibung" />
                                         <small id="descriptionHelp" className="form-text text-muted">Eine kurze Beschreibung.</small>
                                     </div>
-
+                             
+                                    
+                             
                                     <div className="form-group">
                                         <label htmlFor="inputStart">Start</label>
-                                        <input type="text" name="start" onChange={this.onChangeHandler} className="form-control" id="inputStart" aria-describedby="startHelp" placeholder="Wann beginnt diese Aufgabe" />
+                             
+                                        <DatePicker
+                                            selected={this.state.picker_start}
+                                            onChange={this.onStartDateChange}
+                                            showTimeSelect
+                                            timeFormat="HH:mm"
+                                            dateFormat="dd-MM-yyyy HH:mm"
+                                            strictParsing
+                                            className="form-control"
+                                            placeholderText="Klicken zum auswählen des Starts" 
+                                        />
+                             
                                         <small id="startHelp" className="form-text text-muted">Startdatum der Aufgabe</small>
-                                    </div>
+                                    </div> 
 
                                     <div className="form-group">
                                         <label htmlFor="inputEnde">Ende</label>
-                                        <input type="text" name="end" onChange={this.onChangeHandler} className="form-control" id="inputEnde" aria-describedby="endeHelp" placeholder="Wann endet diese Aufgabe" />
+                             
+                                        <DatePicker
+                                            selected={this.state.picker_end}
+                                            onChange={this.onEndDateChange}
+                                            showTimeSelect
+                                            timeFormat="HH:mm"
+                                            dateFormat="dd-MM-yyyy HH:mm"
+                                            strictParsings
+                                            className="form-control"
+                                            placeholderText="Klicken zum auswählen des Endes" 
+                                        />
+                             
                                         <small id="endeHelp" className="form-text text-muted">Enddatum der Aufgabe.</small>
                                     </div>
                                     

@@ -36,6 +36,7 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "chart.js": "^2.8.0",
         "react-chartjs-2": "^2.7.6",
+        "react-datepicker": "^2.5.0",
         "react-router-dom": "^5.0.0"
     },
     "jest": {

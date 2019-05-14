@@ -80,7 +80,7 @@ class HomeController extends Controller
      */
     public function save_task($subject_id, $task_name, $task_description, $start, $end){
         DB::table('tasks')->insert(
-            ['subject_id' => $subject_id, 'name' => $task_name, 'description' => $task_description, 'end' => $end, 'done' => 0, 'updated_at' => now(), 'created_at' => now() ]
+            ['subject_id' => $subject_id, 'name' => $task_name, 'description' => $task_description, 'start' => $start, 'end' => $end, 'done' => 0, 'updated_at' => now(), 'created_at' => now() ]
         );
         
         return $this->get_subjects_tasks($subject_id);

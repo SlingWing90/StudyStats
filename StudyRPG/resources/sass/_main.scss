@@ -37,3 +37,12 @@ html, body{
     max-height: 80vh;
     overflow-y:scroll;
 }
+
+/* Override react-datepicker*/
+.react-datepicker-wrapper{
+    display: initial !important;
+}
+
+.react-datepicker__input-container{
+    display: initial !important;
+}
