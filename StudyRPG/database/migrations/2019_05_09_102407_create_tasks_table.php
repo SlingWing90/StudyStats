@@ -18,7 +18,9 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger("subject_id");
             $table->string("name");
             $table->string("description");
+            $table->dateTime("start");
             $table->dateTime("end");
+            $table->dateTime("finished");
             $table->unsignedSmallInteger("done");
             
             $table->foreign('subject_id')

@@ -27,3 +27,5 @@ Route::get('done/{task_id}', 'HomeController@set_task_done');
 
 Route::get('new_subject/{subject_name}', 'HomeController@save_subject');
 Route::get('new_task/{subject_id}/{task_name}/{task_description}/{start}/{end}', 'HomeController@save_task');
+
+Route::get('process', 'HomeController@get_process');

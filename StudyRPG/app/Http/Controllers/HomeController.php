@@ -21,7 +21,7 @@ class HomeController extends Controller
      *  Updates a task to show its done
      */
     public function set_task_done($task_id){
-        DB::table("tasks")->where("id", $task_id)->update(["done" => 1]);
+        DB::table("tasks")->where("id", $task_id)->update(["done" => 1, "finished" => now()]);
     }
     
     /*
@@ -54,6 +54,8 @@ class HomeController extends Controller
         
         return DB::table('tasks')
                     ->where('done', $done)
+                    ->where('start', '<=', now())
+                    //->where('end', '>=', now())
                     ->orderBy("end")
                     ->get();
         
@@ -82,5 +84,25 @@ class HomeController extends Controller
         );
         
         return $this->get_subjects_tasks($subject_id);
+    }
+    
+    /*
+     * Returns finsihed tasks grouped by month and year
+     */
+    public function get_process(){
+        /*
+        seLECT CONCAT(MONTH(finished), CONCAT( ".", YEAR(finished))), count(tasks.id) FROM tasks 
+WHERE done = 1
+GROUP BY MONTH(finished), YEAR(finished)
+ORDER BY YEAR(finished), MONTH(finished)
+        */
+        
+        return DB::table('tasks')
+            ->select(DB::raw("MONTH(finished) as month, YEAR(finished) as year, count(tasks.id) as c"))
+            ->where("done", 1)
+            ->groupBy("month", "year")
+            ->orderBy("year")
+            ->orderby("month")
+            ->get();
     }
 }

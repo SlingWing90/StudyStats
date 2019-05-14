@@ -63,7 +63,13 @@
       formatCountdown(end){
           const timeLeft = this.calculateCountdown(end);
           
-          let timeLeftString = "Noch ";
+          console.log(timeLeft);
+          let timeLeftString = "";
+          if(timeLeft != false){
+              timeLeftString = "Noch ";
+          }else{
+              timeLeftString = "Abgelaufen!";
+          }
           
           if(timeLeft.years > 0){
               timeLeftString += timeLeft.years+" Jahre";
@@ -125,7 +131,7 @@
                         </div>
                         <div>
                             <div className="progressbar">
-                                <div className="bar" style={{width: this.timePercentage(item.created_at, item.end)+"%"}}>
+                                <div className="bar" style={{width: this.timePercentage(item.start, item.end)+"%"}}>
                                 </div>
                             </div>
                             <small>{this.formatCountdown(item.end)}</small>

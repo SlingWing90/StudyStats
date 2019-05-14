@@ -103368,6 +103368,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Home =
 /*#__PURE__*/
 function (_Component) {
@@ -103380,23 +103381,48 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Home).call(this, props));
     _this.state = {
-      data: [],
+      radar_data: [],
+      line_data: [],
       tasks: []
     };
     _this.doneTask = _this.doneTask.bind(_assertThisInitialized(_this));
     _this.updateRadar = _this.updateRadar.bind(_assertThisInitialized(_this));
+    _this.updateLine = _this.updateLine.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Home, [{
     key: "componentWillMount",
-    value: function componentWillMount() {}
+    value: function componentWillMount() {
+      var data = {
+        labels: [],
+        datasets: [{
+          label: 'Fortschritt in %',
+          backgroundColor: 'rgba(179,181,198,0.2)',
+          borderColor: 'rgba(179,181,198,1)',
+          pointBackgroundColor: 'rgba(179,181,198,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(179,181,198,1)',
+          data: []
+        }]
+      };
+      this.setState({
+        radar_data: data
+      });
+      /*Line preset*/
+
+      this.setState({
+        line_data: data
+      });
+    }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.updateRadar(); // Load undone tasks
+      this.updateRadar();
+      this.updateLine(); // Load undone tasks
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks/0').then(function (response) {
         _this2.setState({
@@ -103405,15 +103431,51 @@ function (_Component) {
       });
     }
   }, {
+    key: "updateLine",
+    value: function updateLine() {
+      var _this3 = this;
+
+      var data = {
+        labels: [],
+        datasets: [{
+          label: 'Verlauf',
+          backgroundColor: 'rgba(179,181,198,0.2)',
+          borderColor: 'rgba(179,181,198,1)',
+          pointBackgroundColor: 'rgba(179,181,198,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(179,181,198,1)',
+          data: []
+        }]
+      }; // Load finished tasks from server
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/process").then(function (response) {
+        var label_array = [];
+        var data_array = [];
+        response.data.map(function (d) {
+          return label_array.push((d.month < 10 ? "0" : "") + d.month + "." + d.year);
+        });
+        response.data.map(function (d) {
+          return data_array.push(d.c);
+        });
+        data.labels = label_array;
+        data.datasets[0].data = data_array;
+
+        _this3.setState({
+          line_data: data
+        });
+      }); //this.setState({line_data: this.state.radar_data});
+    }
+  }, {
     key: "updateRadar",
     value: function updateRadar() {
-      var _this3 = this;
+      var _this4 = this;
 
       // Initialize Data for Graph
       var data = {
         labels: [],
         datasets: [{
-          label: 'Radar',
+          label: 'Fortschritt in %',
           backgroundColor: 'rgba(179,181,198,0.2)',
           borderColor: 'rgba(179,181,198,1)',
           pointBackgroundColor: 'rgba(179,181,198,1)',
@@ -103436,35 +103498,57 @@ function (_Component) {
         data.labels = label_array;
         data.datasets[0].data = data_array;
 
-        _this3.setState({
-          data: data
+        _this4.setState({
+          radar_data: data
         });
       });
     }
   }, {
     key: "doneTask",
     value: function doneTask(task_key) {
-      var _this4 = this;
+      var _this5 = this;
 
       var task_list = this.state.tasks;
       var task_data = this.state.tasks[task_key];
       var task_id = task_data.id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/done/" + task_id).then(function (response) {
-        var arr = _toConsumableArray(_this4.state.tasks);
+        var arr = _toConsumableArray(_this5.state.tasks);
 
         arr.splice(task_key, 1);
 
-        _this4.setState({
+        _this5.setState({
           tasks: arr
         });
 
-        _this4.updateRadar();
+        _this5.updateRadar();
+
+        _this5.updateLine();
       });
     } // state.tasks: Redux would be much better...
 
   }, {
     key: "render",
     value: function render() {
+      var radar_options = {
+        legend: {
+          display: true
+        },
+        scale: {
+          ticks: {
+            min: 0,
+            max: 100
+          }
+        }
+      };
+      var line_options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      };
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -103476,18 +103560,13 @@ function (_Component) {
       }, "Fortschritt"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "box-border"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__["Radar"], {
-        options: {
-          legend: {
-            display: false
-          },
-          scale: {
-            ticks: {
-              min: 0,
-              max: 100
-            }
-          }
-        },
-        data: this.state.data
+        options: radar_options,
+        data: this.state.radar_data
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "box-border margin-top-10"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__["Line"], {
+        options: line_options,
+        data: this.state.line_data
       }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_TaskList__WEBPACK_IMPORTED_MODULE_3__["default"], {
         tasks: this.state.tasks,
         onDoneClick: this.doneTask
@@ -103906,7 +103985,14 @@ function (_Component) {
     key: "formatCountdown",
     value: function formatCountdown(end) {
       var timeLeft = this.calculateCountdown(end);
-      var timeLeftString = "Noch ";
+      console.log(timeLeft);
+      var timeLeftString = "";
+
+      if (timeLeft != false) {
+        timeLeftString = "Noch ";
+      } else {
+        timeLeftString = "Abgelaufen!";
+      }
 
       if (timeLeft.years > 0) {
         timeLeftString += timeLeft.years + " Jahre";
@@ -103974,7 +104060,7 @@ function (_Component) {
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "bar",
           style: {
-            width: _this2.timePercentage(item.created_at, item.end) + "%"
+            width: _this2.timePercentage(item.start, item.end) + "%"
           }
         })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, _this2.formatCountdown(item.end))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           type: "button",
