@@ -130,8 +130,13 @@ ORDER BY YEAR(finished), MONTH(finished)
         $year_arrays[] = array_slice($json_array, $begin);
         
         $result_array = [];
+        $next_year = false;
         foreach($year_arrays as $year){
             $start_month = $year[0]["month"];
+            
+            if($next_year){
+                $start_month = 1;
+            }
             $end_month = $year[count($year)-1]["month"];
             if($end_month == 11){
                 $end_month = 12;
@@ -173,6 +178,8 @@ ORDER BY YEAR(finished), MONTH(finished)
                 $v = $key_array[$k];
                 $result_array[] = array("date" => $k, "value" => $v);
             }
+            
+            $next_year = true;
             
         }
         
