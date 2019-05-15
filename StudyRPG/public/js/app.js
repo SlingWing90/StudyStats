@@ -116194,10 +116194,10 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 /***/ }),
 
-/***/ "./resources/js/components/EditTaskForm.js":
-/*!*************************************************!*\
-  !*** ./resources/js/components/EditTaskForm.js ***!
-  \*************************************************/
+/***/ "./resources/js/components/Forms/EditTaskForm.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Forms/EditTaskForm.js ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -116308,302 +116308,10 @@ EditTaskForm.propTypes = {
 
 /***/ }),
 
-/***/ "./resources/js/components/Header.js":
-/*!*******************************************!*\
-  !*** ./resources/js/components/Header.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
-
-
-var Header = function Header() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-    className: "navbar navbar-expand-md navbar-light navbar-laravel"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    className: "navbar-brand",
-    to: "/"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "StudyRPG")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/setting"
-  }, "Setting")));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Header);
-
-/***/ }),
-
-/***/ "./resources/js/components/Home.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/Home.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
-/* harmony import */ var _TaskList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TaskList */ "./resources/js/components/TaskList.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-var Home =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Home, _Component);
-
-  function Home(props) {
-    var _this;
-
-    _classCallCheck(this, Home);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Home).call(this, props));
-    _this.state = {
-      radar_data: [],
-      line_data: [],
-      tasks: []
-    };
-    _this.doneTask = _this.doneTask.bind(_assertThisInitialized(_this));
-    _this.updateRadar = _this.updateRadar.bind(_assertThisInitialized(_this));
-    _this.updateLine = _this.updateLine.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(Home, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      var data = {
-        labels: [],
-        datasets: [{
-          label: 'Fortschritt in %',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: 'rgba(179,181,198,1)',
-          pointBackgroundColor: 'rgba(179,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: []
-        }]
-      };
-      this.setState({
-        radar_data: data
-      });
-      /*Line preset*/
-
-      this.setState({
-        line_data: data
-      });
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.updateRadar();
-      this.updateLine(); // Load undone tasks
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks/0').then(function (response) {
-        _this2.setState({
-          tasks: response.data
-        });
-      });
-    }
-  }, {
-    key: "updateLine",
-    value: function updateLine() {
-      var _this3 = this;
-
-      var data = {
-        labels: [],
-        datasets: [{
-          label: 'Verlauf',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: 'rgba(179,181,198,1)',
-          pointBackgroundColor: 'rgba(179,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: []
-        }]
-      }; // Load finished tasks from server
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/process").then(function (response) {
-        var label_array = [];
-        var data_array = [];
-        response.data.map(function (d) {
-          return label_array.push((d.month < 10 ? "0" : "") + d.month + "." + d.year);
-        });
-        response.data.map(function (d) {
-          return data_array.push(d.c);
-        });
-        data.labels = label_array;
-        data.datasets[0].data = data_array;
-
-        _this3.setState({
-          line_data: data
-        });
-      }); //this.setState({line_data: this.state.radar_data});
-    }
-  }, {
-    key: "updateRadar",
-    value: function updateRadar() {
-      var _this4 = this;
-
-      // Initialize Data for Graph
-      var data = {
-        labels: [],
-        datasets: [{
-          label: 'Fortschritt in %',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: 'rgba(179,181,198,1)',
-          pointBackgroundColor: 'rgba(179,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: []
-        }]
-      }; // Load finished tasks from server
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/subjects_tasks_done").then(function (response) {
-        var label_array = [];
-        var data_array = [];
-        response.data.map(function (d) {
-          return label_array.push(d.name);
-        });
-        response.data.map(function (d) {
-          return data_array.push(d.c);
-        });
-        data.labels = label_array;
-        data.datasets[0].data = data_array;
-
-        _this4.setState({
-          radar_data: data
-        });
-      });
-    }
-  }, {
-    key: "doneTask",
-    value: function doneTask(task_key) {
-      var _this5 = this;
-
-      var task_list = this.state.tasks;
-      var task_data = this.state.tasks[task_key];
-      var task_id = task_data.id;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/done/" + task_id).then(function (response) {
-        var arr = _toConsumableArray(_this5.state.tasks);
-
-        arr.splice(task_key, 1);
-
-        _this5.setState({
-          tasks: arr
-        });
-
-        _this5.updateRadar();
-
-        _this5.updateLine();
-      });
-    } // state.tasks: Redux would be much better...
-
-  }, {
-    key: "render",
-    value: function render() {
-      var radar_options = {
-        legend: {
-          display: true
-        },
-        scale: {
-          ticks: {
-            min: 0,
-            max: 100
-          }
-        }
-      };
-      var line_options = {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              stepSize: 1
-            }
-          }]
-        }
-      };
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-6"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: "text-center"
-      }, "Fortschritt"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "box-border"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__["Radar"], {
-        options: radar_options,
-        data: this.state.radar_data
-      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "box-border margin-top-10"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__["Line"], {
-        options: line_options,
-        data: this.state.line_data
-      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_TaskList__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        tasks: this.state.tasks,
-        onDoneClick: this.doneTask
-      })));
-    }
-  }]);
-
-  return Home;
-}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (Home);
-
-/***/ }),
-
-/***/ "./resources/js/components/NewTaskForm.js":
-/*!************************************************!*\
-  !*** ./resources/js/components/NewTaskForm.js ***!
-  \************************************************/
+/***/ "./resources/js/components/Forms/NewTaskForm.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Forms/NewTaskForm.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -116849,10 +116557,42 @@ NewTaskForm.propTypes = {
 
 /***/ }),
 
-/***/ "./resources/js/components/Setting.js":
-/*!********************************************!*\
-  !*** ./resources/js/components/Setting.js ***!
-  \********************************************/
+/***/ "./resources/js/components/Header.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Header.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+var Header = function Header() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    className: "navbar navbar-expand-md navbar-light navbar-laravel"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    className: "navbar-brand",
+    to: "/"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "StudyRPG")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/setting"
+  }, "Setting")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Header);
+
+/***/ }),
+
+/***/ "./resources/js/components/Home.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Home.js ***!
+  \*****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -116862,11 +116602,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _NewTaskForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NewTaskForm */ "./resources/js/components/NewTaskForm.js");
-/* harmony import */ var _EditTaskForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditTaskForm */ "./resources/js/components/EditTaskForm.js");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
+/* harmony import */ var _Parts_TaskList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Parts/TaskList */ "./resources/js/components/Parts/TaskList.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -116889,166 +116635,225 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Setting =
+
+var Home =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Setting, _Component);
+  _inherits(Home, _Component);
 
-  function Setting(props) {
+  function Home(props) {
     var _this;
 
-    _classCallCheck(this, Setting);
+    _classCallCheck(this, Home);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Setting).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Home).call(this, props));
     _this.state = {
-      selected_subject: -2,
-      subject_name: '',
-      subjects: [],
-      show_add: true
+      radar_data: [],
+      line_data: [],
+      tasks: []
     };
-    _this.onChangeSelect = _this.onChangeSelect.bind(_assertThisInitialized(_this));
-    _this.onChangeHandler = _this.onChangeHandler.bind(_assertThisInitialized(_this));
-    _this.saveSubject = _this.saveSubject.bind(_assertThisInitialized(_this));
-    _this.onClickHandler = _this.onClickHandler.bind(_assertThisInitialized(_this));
+    _this.doneTask = _this.doneTask.bind(_assertThisInitialized(_this));
+    _this.updateRadar = _this.updateRadar.bind(_assertThisInitialized(_this));
+    _this.updateLine = _this.updateLine.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(Setting, [{
+  _createClass(Home, [{
     key: "componentWillMount",
-    value: function componentWillMount() {//
+    value: function componentWillMount() {
+      var data = {
+        labels: [],
+        datasets: [{
+          label: 'Fortschritt in %',
+          backgroundColor: 'rgba(179,181,198,0.2)',
+          borderColor: 'rgba(179,181,198,1)',
+          pointBackgroundColor: 'rgba(179,181,198,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(179,181,198,1)',
+          data: []
+        }]
+      };
+      this.setState({
+        radar_data: data
+      });
+      /*Line preset*/
+
+      this.setState({
+        line_data: data
+      });
     }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/subjects').then(function (response) {
+      this.updateRadar();
+      this.updateLine(); // Load undone tasks
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tasks/0').then(function (response) {
         _this2.setState({
-          subjects: response.data
+          tasks: response.data
         });
       });
     }
   }, {
-    key: "onChangeSelect",
-    value: function onChangeSelect(event) {
-      //console.log(event.target.value);
-      var subject_id = event.target.value; //this.updateTasks(subject_id);
-
-      this.setState({
-        selected_subject: event.target.value
-      });
-    }
-  }, {
-    key: "onChangeHandler",
-    value: function onChangeHandler(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
-    }
-  }, {
-    key: "onClickHandler",
-    value: function onClickHandler(val) {
-      //console.table(event.target);
-      console.log(val);
-      this.setState({
-        show_add: val
-      });
-    }
-  }, {
-    key: "saveSubject",
-    value: function saveSubject() {
+    key: "updateLine",
+    value: function updateLine() {
       var _this3 = this;
 
-      var subject_name = this.state.subject_name;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/new_subject/' + subject_name).then(function (response) {
+      var data = {
+        labels: [],
+        datasets: [{
+          label: 'Verlauf',
+          backgroundColor: 'rgba(179,181,198,0.2)',
+          borderColor: 'rgba(179,181,198,1)',
+          pointBackgroundColor: 'rgba(179,181,198,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(179,181,198,1)',
+          data: []
+        }]
+      }; // Load finished tasks from server
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/process").then(function (response) {
+        var label_array = [];
+        var data_array = [];
+        console.log(response.data);
+        response.data.map(function (d) {
+          return label_array.push(d.date);
+        });
+        response.data.map(function (d) {
+          return data_array.push(d.value);
+        });
+        data.labels = label_array;
+        data.datasets[0].data = data_array;
+
         _this3.setState({
-          subjects: response.data
+          line_data: data
+        });
+      }); //this.setState({line_data: this.state.radar_data});
+    }
+  }, {
+    key: "updateRadar",
+    value: function updateRadar() {
+      var _this4 = this;
+
+      // Initialize Data for Graph
+      var data = {
+        labels: [],
+        datasets: [{
+          label: 'Fortschritt in %',
+          backgroundColor: 'rgba(179,181,198,0.2)',
+          borderColor: 'rgba(179,181,198,1)',
+          pointBackgroundColor: 'rgba(179,181,198,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(179,181,198,1)',
+          data: []
+        }]
+      }; // Load finished tasks from server
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/subjects_tasks_done").then(function (response) {
+        var label_array = [];
+        var data_array = [];
+        response.data.map(function (d) {
+          return label_array.push(d.name);
+        });
+        response.data.map(function (d) {
+          return data_array.push(d.c);
+        });
+        data.labels = label_array;
+        data.datasets[0].data = data_array;
+
+        _this4.setState({
+          radar_data: data
         });
       });
     }
+  }, {
+    key: "doneTask",
+    value: function doneTask(task_key) {
+      var _this5 = this;
+
+      var task_list = this.state.tasks;
+      var task_data = this.state.tasks[task_key];
+      var task_id = task_data.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/done/" + task_id).then(function (response) {
+        var arr = _toConsumableArray(_this5.state.tasks);
+
+        arr.splice(task_key, 1);
+
+        _this5.setState({
+          tasks: arr
+        });
+
+        _this5.updateRadar();
+
+        _this5.updateLine();
+      });
+    } // state.tasks: Redux would be much better...
+
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
-
-      var subjects = this.state.subjects;
+      var radar_options = {
+        legend: {
+          display: true
+        },
+        scale: {
+          ticks: {
+            min: 0,
+            max: 100
+          }
+        }
+      };
+      var line_options = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              stepSize: 1
+            }
+          }]
+        }
+      };
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-12"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
+        className: "text-center"
+      }, "Fortschritt"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "box-border"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Fach"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
-        name: "subject",
-        onChange: this.onChangeSelect,
-        className: "form-control",
-        id: "exampleFormControlSelect1"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
-        value: "-2"
-      }, "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
-        value: "-1"
-      }, "Neu"), subjects.map(function (item, key) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
-          value: item.id,
-          key: key
-        }, item.name);
-      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-        id: "emailHelp",
-        className: "form-text text-muted"
-      }, "Fach ausw\xE4hlen oder neues Fach anlegen")), this.state.selected_subject == -1 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
-        htmlFor: "exampleInputEmail1"
-      }, "Neues Fach anlegen"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "text",
-        value: this.state.subject_name,
-        name: "subject_name",
-        onChange: this.onChangeHandler,
-        className: "form-control",
-        id: "exampleInputEmail1",
-        "aria-describedby": "emailHelp",
-        placeholder: "Enter email"
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-        id: "emailHelp",
-        className: "form-text text-muted"
-      }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        onClick: this.saveSubject,
-        className: "btn btn-primary"
-      }, "Speichern"))), this.state.selected_subject >= 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__["Radar"], {
+        options: radar_options,
+        data: this.state.radar_data
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "box-border margin-top-10"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Aufgaben"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
-        className: "nav"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: this.state.show_add ? 'btn btn-primary' : 'btn btn-default',
-        onClick: function onClick() {
-          return _this4.onClickHandler(true);
-        }
-      }, "Anlegen"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: !this.state.show_add ? 'btn btn-primary' : 'btn btn-default',
-        onClick: function onClick() {
-          return _this4.onClickHandler(false);
-        }
-      }, "Bearbeiten")), this.state.show_add == true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_NewTaskForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        subject_id: Number(this.state.selected_subject)
-      }), this.state.show_add == false && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_EditTaskForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        subject_id: Number(this.state.selected_subject)
-      })))));
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_2__["Line"], {
+        options: line_options,
+        data: this.state.line_data
+      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Parts_TaskList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        tasks: this.state.tasks,
+        onDoneClick: this.doneTask
+      })));
     }
   }]);
 
-  return Setting;
+  return Home;
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Setting);
+/* harmony default export */ __webpack_exports__["default"] = (Home);
 
 /***/ }),
 
-/***/ "./resources/js/components/TaskList.js":
-/*!*********************************************!*\
-  !*** ./resources/js/components/TaskList.js ***!
-  \*********************************************/
+/***/ "./resources/js/components/Parts/TaskList.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/Parts/TaskList.js ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -117246,6 +117051,202 @@ TaskList.propTypes = {
   onDoneClick: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func
 };
 /* harmony default export */ __webpack_exports__["default"] = (TaskList);
+
+/***/ }),
+
+/***/ "./resources/js/components/Setting.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/Setting.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Forms_NewTaskForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Forms/NewTaskForm */ "./resources/js/components/Forms/NewTaskForm.js");
+/* harmony import */ var _Forms_EditTaskForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Forms/EditTaskForm */ "./resources/js/components/Forms/EditTaskForm.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var Setting =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Setting, _Component);
+
+  function Setting(props) {
+    var _this;
+
+    _classCallCheck(this, Setting);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Setting).call(this, props));
+    _this.state = {
+      selected_subject: -2,
+      subject_name: '',
+      subjects: [],
+      show_add: true
+    };
+    _this.onChangeSelect = _this.onChangeSelect.bind(_assertThisInitialized(_this));
+    _this.onChangeHandler = _this.onChangeHandler.bind(_assertThisInitialized(_this));
+    _this.saveSubject = _this.saveSubject.bind(_assertThisInitialized(_this));
+    _this.onClickHandler = _this.onClickHandler.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Setting, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {//
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/subjects').then(function (response) {
+        _this2.setState({
+          subjects: response.data
+        });
+      });
+    }
+  }, {
+    key: "onChangeSelect",
+    value: function onChangeSelect(event) {
+      //console.log(event.target.value);
+      var subject_id = event.target.value; //this.updateTasks(subject_id);
+
+      this.setState({
+        selected_subject: event.target.value
+      });
+    }
+  }, {
+    key: "onChangeHandler",
+    value: function onChangeHandler(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "onClickHandler",
+    value: function onClickHandler(val) {
+      //console.table(event.target);
+      console.log(val);
+      this.setState({
+        show_add: val
+      });
+    }
+  }, {
+    key: "saveSubject",
+    value: function saveSubject() {
+      var _this3 = this;
+
+      var subject_name = this.state.subject_name;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/new_subject/' + subject_name).then(function (response) {
+        _this3.setState({
+          subjects: response.data
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      var subjects = this.state.subjects;
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-md-12"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "box-border"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Fach"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        name: "subject",
+        onChange: this.onChangeSelect,
+        className: "form-control",
+        id: "exampleFormControlSelect1"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "-2"
+      }, "---"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "-1"
+      }, "Neu"), subjects.map(function (item, key) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          value: item.id,
+          key: key
+        }, item.name);
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+        id: "emailHelp",
+        className: "form-text text-muted"
+      }, "Fach ausw\xE4hlen oder neues Fach anlegen")), this.state.selected_subject == -1 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+        htmlFor: "exampleInputEmail1"
+      }, "Neues Fach anlegen"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        type: "text",
+        value: this.state.subject_name,
+        name: "subject_name",
+        onChange: this.onChangeHandler,
+        className: "form-control",
+        id: "exampleInputEmail1",
+        "aria-describedby": "emailHelp",
+        placeholder: "Enter email"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+        id: "emailHelp",
+        className: "form-text text-muted"
+      }, "We'll never share your email with anyone else.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        onClick: this.saveSubject,
+        className: "btn btn-primary"
+      }, "Speichern"))), this.state.selected_subject >= 0 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "box-border margin-top-10"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Aufgaben"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
+        className: "nav"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: this.state.show_add ? 'btn btn-primary' : 'btn btn-default',
+        onClick: function onClick() {
+          return _this4.onClickHandler(true);
+        }
+      }, "Anlegen"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: !this.state.show_add ? 'btn btn-primary' : 'btn btn-default',
+        onClick: function onClick() {
+          return _this4.onClickHandler(false);
+        }
+      }, "Bearbeiten")), this.state.show_add == true && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Forms_NewTaskForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        subject_id: Number(this.state.selected_subject)
+      }), this.state.show_add == false && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Forms_EditTaskForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        subject_id: Number(this.state.selected_subject)
+      })))));
+    }
+  }]);
+
+  return Setting;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Setting);
 
 /***/ }),
 

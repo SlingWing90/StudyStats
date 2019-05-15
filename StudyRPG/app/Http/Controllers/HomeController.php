@@ -97,12 +97,85 @@ GROUP BY MONTH(finished), YEAR(finished)
 ORDER BY YEAR(finished), MONTH(finished)
         */
         
-        return DB::table('tasks')
+        $result = DB::table('tasks')
             ->select(DB::raw("MONTH(finished) as month, YEAR(finished) as year, count(tasks.id) as c"))
             ->where("done", 1)
+            //->whereBetween("")
             ->groupBy("month", "year")
             ->orderBy("year")
             ->orderby("month")
             ->get();
+        
+        $json_array = json_decode(json_encode($result), true);
+        
+        // Divide and conquer
+        //echo "Splitted\n";
+        $act_month = $json_array[0]["month"];
+        $act_year = $json_array[0]["year"];
+        
+        $begin = 0;
+        $position = 0;
+        
+        $year_arrays = [];
+        
+        foreach($json_array as $row){
+            if($row["year"] != $act_year){
+                $year_arrays[] = array_slice($json_array, $begin, $position);
+                $begin = $position;
+                $act_year = $row["year"];
+            }
+                
+            $position++;
+        }
+        $year_arrays[] = array_slice($json_array, $begin);
+        
+        $result_array = [];
+        foreach($year_arrays as $year){
+            $start_month = $year[0]["month"];
+            $end_month = $year[count($year)-1]["month"];
+            if($end_month == 11){
+                $end_month = 12;
+            }
+            $start_year = $year[0]["year"];
+            
+            $key_array = [];
+            foreach($year as $row){
+                $m = $row["month"];
+                if($m < 10){
+                    $m = "0".$m;
+                }
+                $key_array[$m.".".$start_year] = $row["c"];
+            }
+            
+            //print_r($key_array);
+            
+            for($y = $start_month; $y <= $end_month; $y++){
+                $m = $y;
+                if($m < 10 ){
+                    $m = "0".$m;
+                }
+                if(isset($key_array[$m.".".$start_year])){
+                    //echo "exist ".$y."-".$start_year."\<br>";
+                }else{
+                    //echo "import ".$y."-".$start_year."\<br>";
+                    $m = $y;
+                    if($m < 10){
+                        $m = "0".$m;
+                    }
+                    $key_array[$m.".".$start_year] = 0;
+                }
+            }
+            
+            ksort($key_array);
+            
+            $keys = array_keys($key_array);
+            foreach($keys as $k){
+                $v = $key_array[$k];
+                $result_array[] = array("date" => $k, "value" => $v);
+            }
+            
+        }
+        
+        return $result_array;
     }
 }

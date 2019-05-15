@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
-import TaskList from '../components/TaskList';
+import TaskList from '../components/Parts/TaskList';
 import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({adapter: new Adapter()});
 

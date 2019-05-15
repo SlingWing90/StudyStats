@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2';
 import {Line} from 'react-chartjs-2';
-import TaskList from './TaskList'
+import TaskList from './Parts/TaskList'
 
 class Home extends Component {
     constructor (props) {
@@ -75,9 +75,9 @@ class Home extends Component {
         axios.get("/api/process").then(response => {
             let label_array = [];
             let data_array = [];
-            
-            response.data.map((d) => label_array.push((d.month < 10 ? "0" : "")+d.month+"."+d.year) );
-            response.data.map((d) => data_array.push(d.c) );
+            console.log(response.data);
+            response.data.map((d) => label_array.push(d.date) );
+            response.data.map((d) => data_array.push(d.value) );
 
             data.labels = label_array;
             data.datasets[0].data = data_array;

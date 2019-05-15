@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { Component } from 'react'
-import NewTaskForm from "./NewTaskForm";
-import EditTaskForm from "./EditTaskForm";
+import NewTaskForm from "./Forms/NewTaskForm";
+import EditTaskForm from "./Forms/EditTaskForm";
 
 
 class Setting extends Component {
