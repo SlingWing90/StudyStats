@@ -116214,6 +116214,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -116248,9 +116250,26 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(EditTaskForm).call(this, props));
     _this.state = {
-      tasks: []
+      tasks: [],
+      task_id: 0,
+      name: "",
+      description: "",
+      start: "",
+      end: "",
+      picker_start: "",
+      picker_end: "",
+      show_task: -1,
+      done: 0
     };
+    _this.onChangeHandler = _this.onChangeHandler.bind(_assertThisInitialized(_this));
+    _this.onStartDateChange = _this.onStartDateChange.bind(_assertThisInitialized(_this));
+    _this.onEndDateChange = _this.onEndDateChange.bind(_assertThisInitialized(_this));
+    _this.formatDate = _this.formatDate.bind(_assertThisInitialized(_this));
+    _this.onTaskClick = _this.onTaskClick.bind(_assertThisInitialized(_this)); //(key)
+
     _this.updateTaskList = _this.updateTaskList.bind(_assertThisInitialized(_this));
+    _this.changeDone = _this.changeDone.bind(_assertThisInitialized(_this));
+    _this.saveTask = _this.saveTask.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -116270,6 +116289,63 @@ function (_Component) {
       }
     }
   }, {
+    key: "formatDate",
+    value: function formatDate(date) {
+      var _date = new Date(date);
+
+      var year = _date.getFullYear();
+
+      var month = _date.getMonth() + 1;
+
+      var day = _date.getDate();
+
+      var hours = _date.getHours();
+
+      var minutes = _date.getMinutes();
+
+      var seconds = _date.getSeconds();
+
+      if (day < 10) {
+        day = "0" + day;
+      }
+
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+
+      var format_date = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+      return format_date;
+    }
+  }, {
+    key: "onTaskClick",
+    value: function onTaskClick(task_key, data) {
+      //console.log(task_key);
+      console.table(data);
+      this.setState({
+        show_task: task_key,
+        task_id: data.id,
+        name: data.name,
+        description: data.description,
+        start: data.start,
+        end: data.end,
+        picker_start: false,
+        picker_end: false,
+        done: data.done
+      });
+    }
+  }, {
     key: "updateTaskList",
     value: function updateTaskList() {
       var _this2 = this;
@@ -116282,8 +116358,62 @@ function (_Component) {
       });
     }
   }, {
+    key: "onStartDateChange",
+    value: function onStartDateChange(start_date) {
+      var format_date = this.formatDate(start_date);
+      console.log(this.formatDate(start_date));
+      this.setState({
+        start: format_date
+      });
+      this.setState({
+        picker_start: start_date
+      });
+    }
+  }, {
+    key: "onEndDateChange",
+    value: function onEndDateChange(end_date) {
+      var format_date = this.formatDate(end_date);
+      this.setState({
+        end: format_date
+      });
+      this.setState({
+        picker_end: end_date
+      });
+    }
+  }, {
+    key: "onChangeHandler",
+    value: function onChangeHandler(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "changeDone",
+    value: function changeDone(doneState) {
+      this.setState({
+        done: !doneState
+      });
+    }
+  }, {
+    key: "saveTask",
+    value: function saveTask() {
+      var _this3 = this;
+
+      var task_id = this.state.task_id;
+      var name = this.state.name;
+      var description = this.state.description;
+      var start = this.state.start;
+      var end = this.state.end;
+      var done = this.state.done;
+      console.log(task_id + " " + name + " " + description + " " + start + " " + end + " " + done);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/update_task/' + task_id + "/" + name + "/" + description + "/" + start + "/" + end + "/" + done).then(function (response) {
+        _this3.updateTaskList(); //this.setState({ tasks: response.data })
+
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       var tasks = this.state.tasks;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "margin-top-10"
@@ -116293,7 +116423,95 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
           key: key,
           className: "list-group-item"
-        }, item.name);
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("strong", {
+          onClick: function onClick() {
+            return _this4.onTaskClick(key, item);
+          }
+        }, item.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          style: {
+            display: _this4.state.show_task == key ? 'block' : 'none'
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "form-group"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+          htmlFor: "inputName"
+        }, "Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+          type: "text",
+          name: "name",
+          value: _this4.state.name,
+          onChange: _this4.onChangeHandler,
+          className: "form-control",
+          id: "inputName",
+          "aria-describedby": "nameHelp",
+          placeholder: "Name der Aufgabe"
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+          id: "nameHelp",
+          className: "form-text text-muted"
+        }, "Ein aussagekr\xE4ftiger Name f\xFCr die Aufgabe.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "form-group"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+          htmlFor: "inputDescription"
+        }, "Beschreibung"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+          type: "text",
+          name: "description",
+          value: _this4.state.description,
+          onChange: _this4.onChangeHandler,
+          className: "form-control",
+          id: "inputDescription",
+          "aria-describedby": "descriptionHelp",
+          placeholder: "Kurze Beschreibung"
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+          id: "descriptionHelp",
+          className: "form-text text-muted"
+        }, "Eine kurze Beschreibung.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "form-group"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+          htmlFor: "inputStart"
+        }, "Start"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          selected: _this4.state.picker_start,
+          onChange: _this4.onStartDateChange,
+          showTimeSelect: true,
+          timeFormat: "HH:mm",
+          dateFormat: "dd-MM-yyyy HH:mm",
+          strictParsing: true,
+          className: "form-control",
+          placeholderText: "Klicken zum ausw\xE4hlen des Starts"
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+          id: "startHelp",
+          className: "form-text text-muted"
+        }, "Startdatum der Aufgabe")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "form-group"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+          htmlFor: "inputEnde"
+        }, "Ende"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          selected: _this4.state.picker_end,
+          onChange: _this4.onEndDateChange,
+          showTimeSelect: true,
+          timeFormat: "HH:mm",
+          dateFormat: "dd-MM-yyyy HH:mm",
+          strictParsings: true,
+          className: "form-control",
+          placeholderText: "Klicken zum ausw\xE4hlen des Endes"
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+          id: "endeHelp",
+          className: "form-text text-muted"
+        }, "Enddatum der Aufgabe.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "form-group"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+          type: "checkbox",
+          onChange: function onChange() {
+            return _this4.changeDone(_this4.state.done);
+          },
+          className: "form-check-input",
+          id: "inputDone",
+          checked: _this4.state.done == 1 ? 'checked' : ''
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+          className: "form-check-label",
+          htmlFor: "inputDone"
+        }, "Erledigt")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          className: "btn btn-primary",
+          onClick: _this4.saveTask
+        }, "Speichern")));
       })));
     }
   }]);
@@ -116467,7 +116685,13 @@ function (_Component) {
       console.log("saveTask: " + subject_id + " " + task_name + " " + task_description + " " + task_start + " " + task_ende);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/new_task/' + subject_id + "/" + task_name + "/" + task_description + "/" + task_start + "/" + task_ende).then(function (response) {
         _this2.setState({
-          tasks: response.data
+          tasks: response.data,
+          name: "",
+          description: "",
+          start: "",
+          end: "",
+          picker_start: "",
+          picker_end: ""
         });
       });
     }
@@ -116485,6 +116709,7 @@ function (_Component) {
       }, "Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "text",
         name: "name",
+        value: this.state.name,
         onChange: this.onChangeHandler,
         className: "form-control",
         id: "inputName",
@@ -116500,6 +116725,7 @@ function (_Component) {
       }, "Beschreibung"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "text",
         name: "description",
+        value: this.state.description,
         onChange: this.onChangeHandler,
         className: "form-control",
         id: "inputDescription",
@@ -116634,7 +116860,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // import FlashMessage from './Comp/FlashMessage';
 
 var Home =
 /*#__PURE__*/

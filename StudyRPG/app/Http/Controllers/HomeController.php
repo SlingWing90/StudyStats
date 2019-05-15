@@ -87,6 +87,15 @@ class HomeController extends Controller
     }
     
     /*
+     * Updates Task-Data
+     */
+    public function update_task($task_id, $name, $description, $start, $end, $done){
+        
+        DB::table("tasks")->where("id", $task_id)->update(["name" => $name, "description" => $description, "start" => $start, "end" => $end, "done" => $done]);
+    
+    }
+    
+    /*
      * Returns finsihed tasks grouped by month and year
      */
     public function get_process(){
@@ -109,7 +118,6 @@ ORDER BY YEAR(finished), MONTH(finished)
         $json_array = json_decode(json_encode($result), true);
         
         // Divide and conquer
-        //echo "Splitted\n";
         $act_month = $json_array[0]["month"];
         $act_year = $json_array[0]["year"];
         
@@ -152,21 +160,12 @@ ORDER BY YEAR(finished), MONTH(finished)
                 $key_array[$m.".".$start_year] = $row["c"];
             }
             
-            //print_r($key_array);
-            
             for($y = $start_month; $y <= $end_month; $y++){
                 $m = $y;
                 if($m < 10 ){
                     $m = "0".$m;
                 }
-                if(isset($key_array[$m.".".$start_year])){
-                    //echo "exist ".$y."-".$start_year."\<br>";
-                }else{
-                    //echo "import ".$y."-".$start_year."\<br>";
-                    $m = $y;
-                    if($m < 10){
-                        $m = "0".$m;
-                    }
+                if(!isset($key_array[$m.".".$start_year])){
                     $key_array[$m.".".$start_year] = 0;
                 }
             }

@@ -2,7 +2,9 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2';
 import {Line} from 'react-chartjs-2';
-import TaskList from './Parts/TaskList'
+import TaskList from './Parts/TaskList';
+
+// import FlashMessage from './Comp/FlashMessage';
 
 class Home extends Component {
     constructor (props) {

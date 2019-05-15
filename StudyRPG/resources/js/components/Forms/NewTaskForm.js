@@ -103,7 +103,17 @@ class NewTaskForm extends Component {
         console.log("saveTask: "+subject_id+" "+task_name+" "+task_description+" "+task_start+" "+task_ende);
         
         axios.get('/api/new_task/'+subject_id+"/"+task_name+"/"+task_description+"/"+task_start+"/"+task_ende).then(response => {
-            this.setState({ tasks: response.data })
+            
+            
+            
+            this.setState({ tasks: response.data,
+                            name: "",
+                            description: "",
+                            start: "",
+                            end: "",
+                            picker_start: "",
+                            picker_end: ""
+                          });
          })
     }
 
@@ -117,13 +127,13 @@ class NewTaskForm extends Component {
             <div className="margin-top-10">
                 <div className="form-group">
                     <label htmlFor="inputName">Name</label>
-                    <input type="text" name="name" onChange={this.onChangeHandler} className="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Name der Aufgabe" />
+                    <input type="text" name="name" value={this.state.name} onChange={this.onChangeHandler} className="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Name der Aufgabe" />
                     <small id="nameHelp" className="form-text text-muted">Ein aussagekräftiger Name für die Aufgabe.</small>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="inputDescription">Beschreibung</label>
-                    <input type="text" name="description" onChange={this.onChangeHandler} className="form-control" id="inputDescription" aria-describedby="descriptionHelp" placeholder="Kurze Beschreibung" />
+                    <input type="text" name="description" value={this.state.description} onChange={this.onChangeHandler} className="form-control" id="inputDescription" aria-describedby="descriptionHelp" placeholder="Kurze Beschreibung" />
                     <small id="descriptionHelp" className="form-text text-muted">Eine kurze Beschreibung.</small>
                 </div>
 
