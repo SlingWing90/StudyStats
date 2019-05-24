@@ -28,9 +28,9 @@ npm install
 php artisan migrate:fresh
 ```
 
-6.1 If you like to have your tables filled with example-data, use following cmd-command:
+If you like to have your tables filled with example-data, use following cmd-command:
 ```
 php artisan migrate:fresh --seed
 ```
 
-7. You are finished now. Open your favorised WebBrowser and enter "localhost:8000"
+7. You are finished now. Open your favorised WebBrowser and locate to [localhost](http://localhost:8000)
